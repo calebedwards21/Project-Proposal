@@ -78,9 +78,9 @@ Once we have data from the sensors being read by the ESP, and valid communicatio
 \section{Group Management and Communication Plan}
 Our group communication plan consists of two different platforms. We will use Discord for real time, fast communication. We will use Github for the management of all tasks and document storage. 
 
-Discord will be for all of our immediate communication. If we have a time pressing question that needs to be discussed, Discord allows real time communication. Discord also allows file sharing if the team needs to view something in that exact moment. The link to this application is found in [2].
+Discord will be for all of our immediate communication. If we have a time pressing question that needs to be discussed, Discord allows real time communication. Discord also allows file sharing if the team needs to view something in that exact moment. The link to this application is found in [1].
 
-Github will allow us to all have access to our repository, as well as view the project plan and tasks associated with this repo. The project portion of Github allows you to use a Kanban style management for the agile project management. This process will allow us to view the progress of each other to see if we are falling behind in different areas. This will allow us to manage our time and help others with certain tasks if we realize we are falling behind. The link to Github is found in [3]. 
+Github will allow us to all have access to our repository, as well as view the project plan and tasks associated with this repo. The project portion of Github allows you to use a Kanban style management for the agile project management. This process will allow us to view the progress of each other to see if we are falling behind in different areas. This will allow us to manage our time and help others with certain tasks if we realize we are falling behind. The link to Github is found in [2]. 
 
 During the semester we plan on meeting at least once a week to discuss how things are progressing. If one member is having trouble with a task, this time can be used to meet in person to resolve the problem. The time at which we meet each week will be flexible based on everyone's schedules the upcoming semester.
 
@@ -137,13 +137,13 @@ During the semester we plan on meeting at least once a week to discuss how thing
 Med?
 
 \subsection{Communication Between ESP and Sensors}
-The risk for this task is high because there can be multiple sensors trying to communicate with one ESP microcontroller. To mitigate this risk, one sensor will be added at a time. This will allow for steady progress when trying to add sensors as we move through the project and get to our final destination. Sensors that communicate with I2C will be sought after, since this is what ESP uses. This will lower the risk as we will not have to use different protocols with different sensors.
+High Risk : The risk for this task is high because there can be multiple sensors trying to communicate with one ESP microcontroller. To mitigate this risk, one sensor will be added at a time. This will allow for steady progress when trying to add sensors as we move through the project and get to our final destination. Sensors that communicate with I2C will be sought after, since this is what ESP uses. This will lower the risk as we will not have to use different protocols with different sensors.
 
 \subsection{Communication Between ESP and Raspberry PI}
-The risk for communication between the ESP and sensors is high. This is high due to the choice of using wireless communication. This will be done either with BLE or Wifi. To lessen the risk of this task, wired communication over I2C will be used. This will create a more stable and reliable communication that we are already used to. 
+High Risk : The risk for communication between the ESP and sensors is high. This is high due to the choice of using wireless communication. This will be done either with BLE or Wifi. To lessen the risk of this task, wired communication over I2C will be used. This will create a more stable and reliable communication that we are already used to. 
 
 \subsection{User Interface}
-Med/High
+Med/Low Risk: The interface is based upon an open source irrigation control system that is being actively updated and used. This interface however doesn't support our sensors and I will have to add it to the interface, thus the only true area of risk for this is whether or not we can add new sensor information.
 
 \subsection{Database and Data Storage}
 Med
@@ -152,7 +152,7 @@ Med
 Low
 
 \subsection{Relay to Turn on Zones}
-Low/Med
+Low/Med Risk: We are using a Raspberry Pi 8-Relay Card add-on which is supported with our open source interface and has low risk given its universal usage and correlation with the Raspberry PI Model 3 A+.
 
 \section{Bill of Materials}
 \subsection{Sensors}
@@ -180,8 +180,8 @@ Low/Med
 \section{Conclusion}
 
 \begin{thebibliography}{99}
-\bibitem{c1} https://discordapp.com
-\bibitem{c2} https://github.com
+\bibitem{c1} https://discordapp.com/
+\bibitem{c2} https://github.com/
 \bibitem{c3} https://dan-in-ca.github.io/SIP/
 \end{thebibliography}
 
