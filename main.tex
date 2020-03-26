@@ -55,22 +55,38 @@ There will be many different tasks involved in the creation of a smart sprinkler
 \subsection{Sensor Arrays}
 
 \subsection{Communication Between ESP and Sensors}
+For this task, we will have the ESP32 that needs to read data given by a set of sensors. The ESP chip has an I2C bus for communication. Due to this aspect, we will only have sensors with I2C buses as well. The ESP will be running Micropython, and have an associated .py script that will read the I2C bus. This is described in [6]. The data that the ESP now has stored will be sent to our main controller, which will be described in the next subsection.
 
 \subsection{Communication Between ESP and Raspberry PI}
+Once the ESP has the data from the sensors, the data needs to be transferred to the Pi for processing. This will be done with BLE communication. This part of the project will require a lot more effort and research as wireless communication is no easy task. Bluetooth is a big protocol and will be risky in trying to implement in our project. A tutorial that we will base this can be found in [6]. If this does not work as planned, we will move to Wifi. We can accomplish this by following Wifi protocol, and examples found in [7]. Our last resort, if no wireless communication is possible, would be to transfer data over USB. This is the most simple, and the Pi has four USB ports for the four ESP's that we would be using.
 
 \subsection{User Interface}
 
 \subsection{Database and Data Storage}
 
 \subsection{Predictive Algorithm}
+There needs to be an algorithm that determines what happens with the data that is stored on the Pi. This could be done with a certain percentage given to each sensor that is read from each of the zones. Based on these percentages, an algorithm could determine a watering time for that zone, as well as a proposed watering time. These calculations are determined based on the sensors being a temperature, moisture, and other sensors listed on the bill of materials. Depending on how much data the user has, a machine learning model could be used for this project as well. This would be dependent on if the Pi had enough processing power to run machine learning algorithms, and contain a model. The model could be trained with previous summer's data, and then be used to determine predictions for the user. If time, data, and memory permits, a model will be trained based on the data and implemented to take future data and predict recommendations for the user. 
 
 \subsection{Relay to Turn on Zones}
 
 \section{Testing and Integration Strategy}
-\subsection{Individual Testing}
-Testing will be done with distinct and unique portions of the project. Every portion of the project that can be ran without integration will be tested separately, before integrating. Data being read from each sensor to an ESP will be tested separate from the rest of the project until we know we can integrate. The communication from the ESP to the PI will be done separate with small test data. This will allow us to know we get the communication correct, before we move on to integration. 
 
-There will be testing on turning on the valve using a Pi. This portion of testing will be to make sure that a Pi with a relay can turn on the valve for a sprinkler system. 
+\subsection{Sensor Array Testing}
+
+\subsection{ESP and Sensor Communication Testing}
+Communication testing with sensors and the ESP will happen with testing one sensor at a time. Each sensor will be tested one at a time using the I2C bus, and validated that data can be read in different environments. This will be done to make sure that different data can be read in different scenarios, and that the sensor can be used in the final version of the project. Once this is completed, and all sensors have been validated, integration of the sensors can take place. This means that we will have multiple sensors sending data over the I2C bus to the ESP. We will start with two slaves to one master, and increase the slaves as we have more success. As soon as all sensors are added over I2C, this part of testing is done. 
+\subsection{ESP and Raspberry Pi Communication Testing}
+
+Testing for communication between the Pi and the ESP will be opposite from what was stated in section 2. We will start with USB testing, and move on from there. As soon as the data is transferred from USB to USB, wireless testing will commence. BLE testing will happen first. This will be done by following the tutorial in [6] as well as any other sites that might be found later on in development. If the BLE ends up not working by the October deadline, Wifi testing will begin. This will be done by following the tutorial in [7] as well as any other sources found in development. If all wireless testing fails, we will move back to USB connections and use that as our communication between ESP and Pi. 
+
+\subsection{User Interface Testing}
+
+\subsection{Database Testing}
+
+\subsection{Predictive Algorithm Testing}
+This portion of testing will be mostly trial and error. Based on the data, and how much we have of it, will determine what the algorithm produces. This algorithm will also be based off of past research, as found in [7]. There is really no wrong to the algorithm, as it is based on the data that has been collected in a certain area. For example, the moisture sensor will most likely have the highest percentage to determine output. Depending on how much moisture is in the soil, will determine that percentage of time that the specific zone needs watering. The watering time might be determined from real-time data, while the time of day of watering might be determined from historical data as well as real-time data. 
+
+\subsection{Relay Testing}
 
 \subsection{Integration Testing}
 Once we have data from the sensors being read by the ESP, and valid communication from the Pi and the ESP; we will be able to integrate these tasks into data being read from the ESP and transferred to the Pi. This will then allow for testing on the predictive algorithm. Once we have data onto the Pi, we can test the algorithm to see if we have results that make sense from the data that we are actually reading. 
@@ -176,11 +192,17 @@ Low/Med Risk: We are using a Raspberry Pi 8-Relay Card add-on which is supported
 \subsection{Sprinkler Equipment}
 \begin{itemize}
   \item 4x (Sprinkler Valves)
+  \item Dirt box for moisture sensor
 \end{itemize}
 
 \section{Vendor List}
 
 \section{Conclusion}
+The spring and summer milestones can be completed independently of each other, with no integration at that time. When the fall months arrive, integration testing starts having to take place and dependencies occur. For the month of August, we will need data to determine the algorithm. By September, the database and algorithm should be completed. This will allow the Pi to access the database and compute the algorithm. The UI will also need to be completed by September so the recommendations can be sent to the user. By October, we will need the relay to work, the communication between sensors and ESP, and the USB communication between Pi and ESP to all be ready to go. These will have to be integrated to start with a completed UI and database to see if the project can fully come together. The relay will have to work so the recommendations that the user selects can be implemented and shown from the relay. At this point the rest of the project will have to come together for final testing. 
+
+The main high risks that come from this project come from the communication end. The communication from the Pi to the ESP is high risk while it is wireless. This risk turns medium when one node can communicate with the Pi. After this, it will be trying to make all nodes communicate clearly with the Pi. This risk becomes low, after individual testing is completed. The risk won't be as high when having to integrate. Or if this fails, the risk is low if we have to use USB connections. The communication between the ESP and the sensors is the next risk that needs to be evaluated. This risk will turn low when all sensors have been decided and tested together with an ESP. The risk will be lowered to medium when each sensor has been tested and verified individually. 
+
+There are many people with brown, dead yards. There grass does not get enough water, or they over water their yards. Sprinklers get left on and a lot of water is wasted. This project fixes those problems. This will automate and predict the best time of day to water your yard, as well as determine and predict the length of time your yard should be watered. It will display to the UI the recommendations that have been determined and let the user decide on if these recommendations seem valid. This system provides help to the users, without taking the control away from the user. 
 
 \bibliographystyle{IEEEtran}
 \bibliography{biblio}
@@ -189,6 +211,15 @@ Low/Med Risk: We are using a Raspberry Pi 8-Relay Card add-on which is supported
 \bibitem{c1} https://discordapp.com/
 \bibitem{c2} https://github.com/
 \bibitem{c3} https://dan-in-ca.github.io/SIP/
+\bibitem{c4} L. Baumgärtner, A. Penning, P. Lampe, B. Richerzhagen, R. Steinmetz and B. Freisleben, "Environmental Monitoring Using Low-Cost Hardware and Infrastructureless Wireless Communication," 2018 IEEE Global Humanitarian Technology Conference (GHTC), San Jose, CA, 2018, pp. 1-8.
+\bibitem{c5} L. S. R. Mechsy, M. U. B. Dias, W. Pragithmukar and A. L. Kulasekera, "A mobile robot based watering system for smart lawn maintenance," 2017 17th International Conference on Control, Automation and Systems (ICCAS), Jeju, 2017, pp. 1537-1542.
+\bibitem{c6} http://docs.micropython.org/en/latest/esp32/quickref.html?highlight=dht
+\bibitem{c7} https://randomnerdtutorials.com/esp32-esp8266-raspberry-pi-lamp-server/
 \end{thebibliography}
 
+% Bib for c4
+% @INPROCEEDINGS{8601883,  author={L. {Baumgärtner} and A. {Penning} and P. {Lampe} and B. {Richerzhagen} and R. {Steinmetz} and B. {Freisleben}},  booktitle={2018 IEEE Global Humanitarian Technology Conference (GHTC)},  title={Environmental Monitoring Using Low-Cost Hardware and Infrastructureless Wireless Communication},   year={2018},  volume={},  number={},  pages={1-8},}
+
+% bib for c5
+% @INPROCEEDINGS{8204233,  author={L. S. R. {Mechsy} and M. U. B. {Dias} and W. {Pragithmukar} and A. L. {Kulasekera}},  booktitle={2017 17th International Conference on Control, Automation and Systems (ICCAS)},  title={A mobile robot based watering system for smart lawn maintenance},   year={2017},  volume={},  number={},  pages={1537-1542},}
 \end{document}
