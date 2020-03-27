@@ -17,7 +17,9 @@
 \overrideIEEEmargins
 
 \title{Smart Sprinkler System with User Configuration and Real Time Feedback}
-\author{Patrick Armstrong, Ryan Williamson, Caleb Edwards}
+\author{Patrick Armstrong, Ryan Williamson, Caleb Edwards\\
+    \textit{Dept. of Electrical and Computer Engineering, University of Utah}
+}
 \date{February 2020}
 
 \begin{document}
@@ -25,11 +27,15 @@
 \maketitle
 
 \begin{abstract}
-Smart sprinkler irrigation control designed with Python and I2C using Raspberry Pi's, sensors, relay board, ESP32 micro-controller and a mobile/desktop interface that allows a user to schedule watering with real time feedback from moisture, weather and infrared sensors. Minimizing excess water usage with automated adjustments to reschedule watering zones based on real-time data.
+Manually setting what times to water grass 
+This project is intended to solve 
+
+% OLD ABSTRACT
+%Smart sprinkler irrigation control designed with Python and I2C using Raspberry Pi's, sensors, relay board, ESP32 micro-controller and a mobile/desktop interface that allows a user to schedule watering with real time feedback from moisture, weather and infrared sensors. Minimizing excess water usage with automated adjustments to reschedule watering zones based on real-time data.
 
 \end{abstract}
 
-\section{Introduction and Motivation}
+\section{Introduction}
 This project will be a smart sprinkler controller based off of different weather sensors placed throughout a user's yard. A zone is a subsystem in a sprinkler system that is controlled from a valve box. There are multiple zones controlled by one valve box. The goal of this project is to provide real time feedback to the user to make informed decisions on when and for how long to water each zone. Our main objective coming into this project was to create something that was feasible. Having a project that pertains to an industrial/commercial industry will help us familiarize ourselves with skills that take an existing product/service and improve upon it by adjusting or re-implementing new methods while maintaining a cheap budget.
 
 As of now, a person with a sprinkler controller has to go to their sprinkler box in their garage and manually enter times and duration for each zone in their yard. Not many people are sure how long or what time of day they should even water their yard. It is almost an educated guess for most people with controllers. Based off of these times and duration settings that are manually entered, the old controller will turn on and water that zone for the specified duration. We would like to make the controller smarter. 
@@ -38,14 +44,13 @@ Our system will be based on recommendations. There will be sensors that collect 
 
 Our controller will collect data from a hub station that will represent a weather station. This will allow the user to also have that extra functionality on their system, viewed through the UI. So if a user would like to base their input to the controller based on these results, they can do so. Each zone of the sprinkler system will have different sensors, including a moisture sensor placed in the dirt of that zone. The data fed to the controller from these results are how the recommendations are determined for unique times of each zone. The layout of how data will be transferred can be seen in Fig. 1.
 
+\section{Background}
+
 \begin{figure*}
 	\centering
-	\begin{minipage}{1\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{Diagram.png}
-		\caption{Block Diagram of Sprinkler Controller}
-		\label{label1}
-	\end{minipage}
+	\includegraphics[width=\textwidth]{Diagram.png}
+	\caption{Block Diagram of Sprinkler Controller}
+	\label{label1}
 \end{figure*}
 
 
@@ -98,9 +103,9 @@ Once we have data from the sensors being read by the ESP, and valid communicatio
 \section{Group Management and Communication Plan}
 Our group communication plan consists of two different platforms. We will use Discord for real time, fast communication. We will use Github for the management of all tasks and document storage. 
 
-Discord will be for all of our immediate communication. If we have a time pressing question that needs to be discussed, Discord allows real time communication. Discord also allows file sharing if the team needs to view something in that exact moment. The link to this application is found in \cite{discord}.
+Discord will be for all of our immediate communication. If we have a time pressing question that needs to be discussed, Discord allows real time communication. Discord also allows file sharing if the team needs to view something in that exact moment \cite{discord}.
 
-Github will allow us to all have access to our repository, as well as view the project plan and tasks associated with this repo. The project portion of Github allows you to use a Kanban style management for the agile project management. This process will allow us to view the progress of each other to see if we are falling behind in different areas. This will allow us to manage our time and help others with certain tasks if we realize we are falling behind. The link to Github is found in \cite{github}. 
+Github will allow us to all have access to our repository, as well as view the project plan and tasks associated with this repo. The project portion of Github allows you to use a Kanban style management for the agile project management. This process will allow us to view the progress of each other to see if we are falling behind in different areas. This will allow us to manage our time and help others with certain tasks if we realize we are falling behind \cite{github}. 
 
 During the semester we plan on meeting at least once a week to discuss how things are progressing. If one member is having trouble with a task, this time can be used to meet in person to resolve the problem. The time at which we meet each week will be flexible based on everyone's schedules the upcoming semester.
 
