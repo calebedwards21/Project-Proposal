@@ -14,12 +14,22 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
 \overrideIEEEmargins
 
 \title{Smart Sprinkler System with Real Time Feedback}
 \author{Patrick Armstrong, Ryan Williamson, Caleb Edwards\\
     \textit{Dept. of Electrical and Computer Engineering, University of Utah}
 }
+
 \date{February 2020}
 
 \begin{document}
@@ -194,17 +204,45 @@ Low/Med Risk: We are using a Raspberry Pi 8-Relay Card add-on which is supported
   \item 1-2x Raspberry Pi 3 B+
   \item 1x Raspberry Pi Zero W
   \item 4-5x ESP32
-  \item (Relay Board)
+  \item Channel Relay Board
 \end{itemize}
 
 \subsection{Sprinkler Equipment}
 \begin{itemize}
-  \item 4x (Sprinkler Valves)
+  \item 4x Sprinkler Valves
 \end{itemize}
 
 \section{Vendor List}
-Vendor 1
+Links are provided for each vendor for quick access to purchase parts and provide more information. See table 1 below for links to each parts page.
+\begin{table}[hbt!]
+\resizebox{0.45\textwidth}{!}{%
+    \begin{tabular}{}
+        \begin{tabular}{|c|c|c|}
+        \hline
+        Vendor 1 & Vendor 2 & Item \\
+        \hline
+        \hline
+        \href{https://www.amazon.com/Adafruit-BME280-Temperature-Humidity-Pressure/dp/B013W1AJUY}{Adafruit(280)}& \href{https://www.adafruit.com/product/3660}{Adafruit(680)} & BME280/680 \\
+        \hline
+         \href{https://www.adafruit.com/product/385}{Adafruit} &\href{https://www.adafruit.com/product/381}{Adafruit(DS18B20)} & DHT22 \\
+        \hline
+        \href{https://www.dfrobot.com/product-531.html}{DFRobot} & \href{https://www.amazon.com/RobotDyn-Photosensitive-digital-Raspberry-projects/dp/B073RBS2N5}{RobotDyn} & BH1750 \\
+        \hline
+      \href{https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/}{Raspberry Pi} & \href{https://www.adafruit.com/product/3055#technical-details}{Adafruit} & Raspberry Pi 3 B+ \\
+        \hline
+        \href{https://www.raspberrypi.org/products/raspberry-pi-zero/}{Raspberry Pi} &\href{https://www.sparkfun.com/products/14277}{Sparkfun} & Raspberry Pi Zero W \\
+        \hline
+        \href{https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z}{HiLetgo} & & ESP32 \\
+        \hline
+        \href{https://www.sainsmart.com/products/8-channel-5v-relay-module}{Sain Smart} & \href{https://wiki.52pi.com/index.php/DockerPi_4_Channel_Relay_SKU:_EP-0099}{52Pi} & \href{https://www.sainsmart.com/products/8-channel-5v-relay-module}{Relay Board}  \\
+        \hline
+        \end{tabular}
+   \end{tabular}%
+   }
+   \caption{"List of Vendors and Items with links"}
+\end{table}
 
+Many of the secondary vendors for the parts are links provided for other options besides those listed above in the bill of materials.
 \section{Conclusion}
 The spring and summer milestones can be completed independently of each other, with no integration at that time. When the fall months arrive, integration testing starts having to take place and dependencies occur. For the month of August, we will need data to determine the algorithm. By September, the database and algorithm should be completed. This will allow the Pi to access the database and compute the algorithm. The UI will also need to be completed by September so the recommendations can be sent to the user. By October, we will need the relay to work, the communication between sensors and ESP, and the USB communication between Pi and ESP to all be ready to go. These will have to be integrated to start with a completed UI and database to see if the project can fully come together. The relay will have to work so the recommendations that the user selects can be implemented and shown from the relay. At this point the rest of the project will have to come together for final testing. 
 
