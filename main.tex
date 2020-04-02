@@ -63,7 +63,7 @@ The controller will collect data from a hub station that will represent a weathe
 \section{Background}
 This project will be based off of a lot of open source material that are already available on the web \cite{SIP}. This project will have a UI that allows any user who has access to view data collected, and make decisions off of that. The difference between this project and other open source projects is that our system is based on recommendations. Based on the data that the system collects, a recommendation will be sent to the UI. The user will then have the option to change settings in the controller based on these recommendations, or leave them as they were. This project is about leaving control to the user. This system will not take over and do everything for the user, unless it is specified that the user wants that. A user could have a setting that says "Accept all recommendations", which would have the controller do everything for the user, but the user still has all the control in choosing that option. 
 
-This project is running with a Raspberry Pi as the main controller, which is similar to many other examples \cite{SIP}. These computers have a lot of processing power, as well as memory that is located in SD cards placed externally on the board. This is what allows for adding a database and UI deployment in this project. 
+This project is running with a Raspberry Pi as the main controller, which is similar to many other examples \cite{SIP}. These computers have a lot of processing power, as well as memory that is located in SD cards placed externally on the board. This is what allows for adding a database and UI deployment in this project. The Raspberry Pi 3+ has four USB ports and an HDMI port. This allows us to flash Linux OS onto the Pi and then we can add the rest of the features from there, including the database, UI, etc. 
 
 %%% Patrick add time series db here *****************************************************
 
@@ -112,6 +112,9 @@ Since, sprinkler systems are a universal tool we decided to use a free open sour
 
 Most importantly SIP was developed and tested on raspberry pi models B,A and Zero. Reducing the risk and time investment of creating a UI for our product. It also provides a very large community of guides and resources for creating an irrigation control system interface with relay boards using raspberry pi's. We will use the interface to display data, provide improvements and give user control over zones and scheduling. We chose to do this, because we wanted to move away from the traditional control box. Creating a user-friendly interface for scheduling watering zones and providing feedback to maximize water usage.
 
+The user interface shouldn't require much testing because it is an open source project that has been tested over a long period of time. We will have to adjust the interface to meet our requirements such as adding three new tabs for displaying the sensor data we collect. The interface will be very useful for testing and displaying data from our sensors and scheduling protocols. SIP provides a tutorial for connecting SainSmarts relay board which is capable of controlling other AC or DC devices such as sprinkler valves. The majority of interface testing will be done through the use of the application and fine tuning bugs/changes.
+
+
 
 \subsection{Database and Data Storage}
 Our projects open source sprinkler/irrigation control software, SIP \cite{SIP},has the capabilities of performing http get/post requests to manipulate or control SIP. The logging in feature that's included with SIP is disabled by default, in order to prevent the uncontrolled accumulation of log data. The raspberry pi controlling the SIP will utilize its memory on board for one user. By default, only 100 records will be recorded at a time. Upon the maximum number of records being reached, new records will be added to the top of the list and the oldest record will be deleted from the bottom. Archiving the records can be done through the log page which contains a link for a user to download the log data as a spread sheet friendly, comma separated values, (csv) text file to another device such as a laptop. Allowing us to keep permanent archived sprinkler data in manageable chunk sizes.
@@ -125,8 +128,6 @@ This portion of testing will be mostly trial and error. Based on the data, and h
 
 \subsection{Relay to Turn on Zones}
 The relay board plugin from SIP \cite{SIP} allows a user to use one or more relay boards to control sprinkler valves; up to 12 stations. A variety of relay boards can be driven by a Raspberry Pi to turn sprinkler valves on. They are commonly available with 1, 2, 4, 8 and 16 channels. As for our relay board, we chose to use SainSmart's \cite{relayBoard} 4-channel 5v relay board (link for part in table 1). This board is active low, meaning a relay is switched on when the Raspberry Pi output changes from 3.3 Volts to 0 Volts.
-
-
 
 \subsection{Integration}
 Once we have data from the sensors being read by the ESP, and valid communication from the Pi and the ESP; we will be able to integrate these tasks into data being read from the ESP and transferred to the Pi. This will then allow for testing on the predictive algorithm. Once we have data onto the Pi, we can test the algorithm to see if we have results that make sense from the data that we are actually reading. 
@@ -256,7 +257,7 @@ Links are provided for each vendor for quick access to purchase parts and provid
         \hline
         \href{https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z}{HiLetgo} & & ESP32 \\
         \hline
-        \href{https://www.sainsmart.com/products/8-channel-5v-relay-module}{Sain Smart} & \href{https://wiki.52pi.com/index.php/DockerPi_4_Channel_Relay_SKU:_EP-0099}{52Pi} & \href{https://www.sainsmart.com/products/8-channel-5v-relay-module}{Relay Board}  \\
+        \href{https://www.sainsmart.com/products/4-channel-5v-relay-module}{Sain Smart} & \href{https://wiki.52pi.com/index.php/DockerPi_4_Channel_Relay_SKU:_EP-0099}{52Pi} & Relay Board \\
         \hline
        \href{https://www.whiteboxes.ch/shop/i2c-soil-moisture-sensor/}{WhiteBoxLabs} & \href{https://www.adafruit.com/product/381}{Adafruit} & I2C Soil Sensor \\
         \hline
