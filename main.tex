@@ -72,6 +72,7 @@ Many of these systems like the option to add sensors to help deliver accurate in
 There will be many different tasks involved in the creation of a smart sprinkler system. Below we will specify the different tasks needed for this project, including their difficulty and how we will be testing of each of them.
 
 \subsection{Sensor Arrays}
+Sensors were selected based on two criteria: I2C protocol and cost. Providing relevant metrics such as light, temperature, soil ph, soil moisture and composition of the soil. Our product doesn't require a large area of precision, therefore one to two sensors per zone will suffice for accurate readings. Sensor data collection will be toggled by our micro controller (ESP32); whenever a measurement is needed. Storing up to five of the most previous read values for each individual sensor. We can reduce the power consumption of sensors by gathering data in timed intervals.
 
 \subsection{Communication Between ESP and Sensors}
 For this task, we will have the ESP32 that needs to read data given by a set of sensors. The ESP chip has an I2C bus for communication. Due to this aspect, we will only have sensors with I2C buses as well. The ESP will be running Micropython, and have an associated .py script that will read the I2C bus. This is described in \cite{LowCostBLE}. The data that the ESP now has stored will be sent to our main controller, which will be described in the next subsection.
@@ -84,15 +85,22 @@ Once the ESP has the data from the sensors, the data needs to be transferred to 
 Testing for communication between the Pi and the ESP will be opposite from what was stated in section 2. We will start with USB testing, and move on from there. As soon as the data is transferred from USB to USB, wireless testing will commence. BLE testing will happen first. This will be done by following the tutorial in \cite{micropy} as well as any other sites that might be found later on in development. If the BLE ends up not working by the October deadline, Wifi testing will begin. This will be done by following the tutorial in \cite{rasServer} as well as any other sources found in development. If all wireless testing fails, we will move back to USB connections and use that as our communication between ESP and Pi. 
 
 \subsection{User Interface}
+Since, sprinkler systems are a universal tool we decided to use a free open source Sprinkler/Irrigation control software called SIP (Sustainable Irrigation Platform) \cite{SIP}. The core software is written in python and runs under linux and implements an intuitive user interface (UI) in javascript on mobile/desktop. Most importantly SIP was developed and tested on raspberry pi models B,A and Zero. Reducing the risk and time investment of creating a UI for our product. It also provides a very large community of guides and resources for creating an irrigation control system interface with relay boards using raspberry pi's. We will use the interface to display data, provide improvements and give user control over zones and scheduling. We chose to do this, because we wanted to move away from the traditional control box. Creating a user-friendly interface for scheduling watering zones and providing feedback to maximize water usage.
+
 
 \subsection{Database and Data Storage}
+Our projects open source sprinkler/irrigation control software, SIP \cite{SIP},has the capabilities of performing http get/post requests to manipulate or control SIP. The logging in feature that's included with SIP is disabled by default, in order to prevent the uncontrolled accumulation of log data. The raspberry pi controlling the SIP will utilize its memory on board for one user. By default, only 100 records will be recorded at a time. Upon the maximum number of records being reached, new records will be added to the top of the list and the oldest record will be deleted from the bottom. Archiving the records can be done through the log page which contains a link for a user to download the log data as a spread sheet friendly, comma separated values, (csv) text file to another device such as a laptop. Allowing us to keep permanent archived sprinkler data in manageable chunk sizes.
+A separate database will be created using MySQL and python as needed. Containing any excess data the initial controllers memory was unable to hold.
+
 
 \subsection{Predictive Algorithm}
 There needs to be an algorithm that determines what happens with the data that is stored on the Pi. This could be done with a certain percentage given to each sensor that is read from each of the zones. Based on these percentages, an algorithm could determine a watering time for that zone, as well as a proposed watering time. These calculations are determined based on the sensors being a temperature, moisture, and other sensors listed on the bill of materials. Depending on how much data the user has, a machine learning model could be used for this project as well. This would be dependent on if the Pi had enough processing power to run machine learning algorithms, and contain a model. The model could be trained with previous summer's data, and then be used to determine predictions for the user. If time, data, and memory permits, a model will be trained based on the data and implemented to take future data and predict recommendations for the user. 
 
-This portion of testing will be mostly trial and error. Based on the data, and how much we have of it, will determine what the algorithm produces. This algorithm will also be based off of past research, as found in \cite{SmartSprinkler}. There is really no wrong to the algorithm, as it is based on the data that has been collected in a certain area. For example, the moisture sensor will most likely have the highest percentage to determine output. Depending on how much moisture is in the soil, will determine that percentage of time that the specific zone needs watering. The watering time might be determined from real-time data, while the time of day of watering might be determined from historical data as well as real-time data. 
+This portion of testing will be mostly trial and error. Based on the data, and how much we have of it, will determine what the algorithm produces. This algorithm will also be based off of past research \cite{SmartSprinkler}. There is really no wrong to the algorithm, as it is based on the data that has been collected in a certain area. For example, the moisture sensor will most likely have the highest percentage to determine output. Depending on how much moisture is in the soil, will determine that percentage of time that the specific zone needs watering. The watering time might be determined from real-time data, while the time of day of watering might be determined from historical data as well as real-time data. 
 
 \subsection{Relay to Turn on Zones}
+The relay board plugin from SIP \cite{SIP} allows a user to use one or more relay boards to control sprinkler valves; up to 12 stations. A variety of relay boards can be driven by a Raspberry Pi to turn sprinkler valves on. They are commonly available with 1, 2, 4, 8 and 16 channels. As for our relay board, we chose to use SainSmart's \cite{relayBoard} 4-channel 5v relay board (link for part in table 1). 'This board is active low, meaning a relay is switched on when the Raspberry Pi output changes from 3.3 Volts to 0 Volts.'
+
 
 
 \subsection{Integration}
@@ -222,6 +230,8 @@ Links are provided for each vendor for quick access to purchase parts and provid
         \href{https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z}{HiLetgo} & & ESP32 \\
         \hline
         \href{https://www.sainsmart.com/products/8-channel-5v-relay-module}{Sain Smart} & \href{https://wiki.52pi.com/index.php/DockerPi_4_Channel_Relay_SKU:_EP-0099}{52Pi} & \href{https://www.sainsmart.com/products/8-channel-5v-relay-module}{Relay Board}  \\
+        \hline
+       \href{https://www.whiteboxes.ch/shop/i2c-soil-moisture-sensor/}{WhiteBoxLabs} & \href{https://www.adafruit.com/product/381}{Adafruit} & I2C Soil Sensor \\
         \hline
         \end{tabular}
    \end{tabular}%
