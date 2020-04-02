@@ -71,10 +71,10 @@ This project is running with a Raspberry Pi as the main controller, which is sim
     \centering
     \includegraphics[scale=.5]{ESP32.jpg}
     \caption{ESP32 with Bluetooth and Wifi capabilities.}
-    \label{fig:my_label}
+    \label{fig:esp_label}
 \end{figure}
 
-Many of these systems like the option to add sensors to help deliver accurate information on whether the lawn should be watered \cite{OpenSprinkler}. This project will have multiple sensors attached to an ESP32. This chip allows for wireless communication and can be programmed with MicroPython or Arduino. This is why it is used in many wireless communication projects \cite{OpenSprinkler}. These chips have an I2C bus for the sensors, and then can send that data over a wireless communication. This can be done with Wifi or Bluetooth, and a visual of the chip is found in Fig. 1. This chip provides a 240 MHz clock with around 512 MB of RAM \cite{Micropython}. This chip could offload some of the processing requirements of the Raspberry Pi onto itself if the situation required. That is what makes these chips so desirable. 
+Many of these systems like the option to add sensors to help deliver accurate information on whether the lawn should be watered \cite{OpenSprinkler}. This project will have multiple sensors attached to an ESP32. This chip allows for wireless communication and can be programmed with MicroPython or Arduino. This is why it is used in many wireless communication projects \cite{OpenSprinkler}. These chips have an I2C bus for the sensors, and then can send that data over a wireless communication. This can be done with Wifi or Bluetooth, and a visual of the chip is found in Fig. 1. This chip provides a 240 MHz clock with around 512 MB of RAM \cite{micropy}. This chip could offload some of the processing requirements of the Raspberry Pi onto itself if the situation required. That is what makes these chips so desirable. 
 
 \begin{figure*}
 	\centering
@@ -105,9 +105,9 @@ Since, sprinkler systems are a universal tool we decided to use a free open sour
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=.32]{RaspberryPIB.jpg}
+    \includegraphics[scale=.3]{RaspberryPIB.jpg}
     \caption{Raspberry Pi 3 Model B+}
-    \label{fig:my_label}
+    \label{fig:pi_label}
 \end{figure}
 
 Most importantly SIP was developed and tested on raspberry pi models B,A and Zero. Reducing the risk and time investment of creating a UI for our product. It also provides a very large community of guides and resources for creating an irrigation control system interface with relay boards using raspberry pi's. We will use the interface to display data, provide improvements and give user control over zones and scheduling. We chose to do this, because we wanted to move away from the traditional control box. Creating a user-friendly interface for scheduling watering zones and providing feedback to maximize water usage.
