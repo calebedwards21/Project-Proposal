@@ -67,7 +67,7 @@ This project is running with a Raspberry Pi as the main controller, which is sim
 
 %%% Patrick add time series db here *****************************************************
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \includegraphics[scale=.5]{ESP32.jpg}
     \caption{ESP32 with Bluetooth and Wifi capabilities.}
@@ -91,19 +91,19 @@ There will be many different tasks involved in the creation of a smart sprinkler
 Sensors were selected based on two criteria: I2C protocol and cost. Providing relevant metrics such as light, temperature, soil ph, soil moisture and composition of the soil. Our product doesn't require a large area of precision, therefore one to two sensors per zone will suffice for accurate readings. Sensor data collection will be toggled by our micro controller (ESP32); whenever a measurement is needed. Storing up to five of the most previous read values for each individual sensor. We can reduce the power consumption of sensors by gathering data in timed intervals.
 
 \subsection{Communication Between ESP and Sensors}
-For this task, we will have the ESP32 that needs to read data given by a set of sensors. The ESP chip has an I2C bus for communication. Due to this aspect, we will only have sensors with I2C buses as well. The ESP will be running Micropython, and have an associated .py script that will read the I2C bus. This is described in \cite{LowCostBLE}. The data that the ESP now has stored will be sent to our main controller, which will be described in the next subsection.
+For this task, we will have the ESP32 that needs to read data given by a set of sensors. The ESP chip has an I2C bus for communication. Due to this aspect, we will only have sensors with I2C buses as well. The ESP will be running Micropython, and have an associated ".py" script that will read the I2C bus \cite{LowCostBLE}. The data that the ESP now has stored will be sent to our main controller, which will be described in the next subsection.
 
 Communication testing with sensors and the ESP will happen with testing one sensor at a time. Each sensor will be tested one at a time using the I2C bus, and validated that data can be read in different environments. This will be done to make sure that different data can be read in different scenarios, and that the sensor can be used in the final version of the project. Once this is completed, and all sensors have been validated, integration of the sensors can take place. This means that we will have multiple sensors sending data over the I2C bus to the ESP. We will start with two slaves to one master, and increase the slaves as we have more success. As soon as all sensors are added over I2C, this part of testing is done. 
 
 \subsection{Communication Between ESP and Raspberry PI}
-Once the ESP has the data from the sensors, the data needs to be transferred to the Pi for processing. This will be done with BLE communication. This part of the project will require a lot more effort and research as wireless communication is no easy task. Bluetooth is a big protocol and will be risky in trying to implement in our project. A tutorial that we will base this can be found in \cite{micropy}. If this does not work as planned, we will move to Wifi. We can accomplish this by following Wifi protocol, and examples found in \cite{rasServer}. Our last resort, if no wireless communication is possible, would be to transfer data over USB. This is the most simple, and the Pi has four USB ports for the four ESP's that we would be using.
+Once the ESP has the data from the sensors, the data needs to be transferred to the Pi for processing. This will be done with BLE communication. This part of the project will require a lot more effort and research as wireless communication is no easy task. Bluetooth is a big protocol and will be risky in trying to implement in our project. There are many tutorials that can be found online in accomplishing Bluetooth with the ESP32 \cite{micropy}. If this does not work as planned, we will move to Wifi. We can accomplish this by following Wifi protocol, and examples implementing this protocol are also found online for the ESP32 \cite{rasServer}. Our last resort, if no wireless communication is possible, would be to transfer data over USB. This is the most simple, and the Pi has four USB ports for the four ESP's that we would be using.
 
-Testing for communication between the Pi and the ESP will be opposite from what was stated in section 2. We will start with USB testing, and move on from there. As soon as the data is transferred from USB to USB, wireless testing will commence. BLE testing will happen first. This will be done by following the tutorial in \cite{micropy} as well as any other sites that might be found later on in development. If the BLE ends up not working by the October deadline, Wifi testing will begin. This will be done by following the tutorial in \cite{rasServer} as well as any other sources found in development. If all wireless testing fails, we will move back to USB connections and use that as our communication between ESP and Pi. 
+Testing for communication between the Pi and the ESP will be opposite from what was stated in section 2. We will start with USB testing, and move on from there. As soon as the data is transferred from USB to USB, wireless testing will commence. BLE testing will happen first \cite{micropy}. If the BLE ends up not working by the October deadline, Wifi testing will begin. This will be done by following tutorials online, as well as any other sources found in development \cite{rasServer} . If all wireless testing fails, we will move back to USB connections and use that as our communication between ESP and Pi. 
 
 \subsection{User Interface}
 Since, sprinkler systems are a universal tool we decided to use a free open source Sprinkler/Irrigation control software called SIP (Sustainable Irrigation Platform) \cite{SIP}. The core software is written in python and runs under linux and implements an intuitive user interface (UI) in javascript on mobile/desktop. 
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \includegraphics[scale=.32]{RaspberryPIB.jpg}
     \caption{Raspberry Pi 3 Model B+}
@@ -114,12 +114,9 @@ Most importantly SIP was developed and tested on raspberry pi models B,A and Zer
 
 The user interface shouldn't require much testing because it is an open source project that has been tested over a long period of time. We will have to adjust the interface to meet our requirements such as adding three new tabs for displaying the sensor data we collect. The interface will be very useful for testing and displaying data from our sensors and scheduling protocols. SIP provides a tutorial for connecting SainSmarts relay board which is capable of controlling other AC or DC devices such as sprinkler valves. The majority of interface testing will be done through the use of the application and fine tuning bugs/changes.
 
-
-
 \subsection{Database and Data Storage}
 Our projects open source sprinkler/irrigation control software, SIP \cite{SIP},has the capabilities of performing http get/post requests to manipulate or control SIP. The logging in feature that's included with SIP is disabled by default, in order to prevent the uncontrolled accumulation of log data. The raspberry pi controlling the SIP will utilize its memory on board for one user. By default, only 100 records will be recorded at a time. Upon the maximum number of records being reached, new records will be added to the top of the list and the oldest record will be deleted from the bottom. Archiving the records can be done through the log page which contains a link for a user to download the log data as a spread sheet friendly, comma separated values, (csv) text file to another device such as a laptop. Allowing us to keep permanent archived sprinkler data in manageable chunk sizes.
 A separate database will be created using MySQL and python as needed. Containing any excess data the initial controllers memory was unable to hold.
-
 
 \subsection{Predictive Algorithm}
 There needs to be an algorithm that determines what happens with the data that is stored on the Pi. This could be done with a certain percentage given to each sensor that is read from each of the zones. Based on these percentages, an algorithm could determine a watering time for that zone, as well as a proposed watering time. These calculations are determined based on the sensors being a temperature, moisture, and other sensors listed on the bill of materials. Depending on how much data the user has, a machine learning model could be used for this project as well. This would be dependent on if the Pi had enough processing power to run machine learning algorithms, and contain a model. The model could be trained with previous summer's data, and then be used to determine predictions for the user. If time, data, and memory permits, a model will be trained based on the data and implemented to take future data and predict recommendations for the user. 
@@ -127,12 +124,10 @@ There needs to be an algorithm that determines what happens with the data that i
 This portion of testing will be mostly trial and error. Based on the data, and how much we have of it, will determine what the algorithm produces. This algorithm will also be based off of past research \cite{SmartSprinkler}. There is really no wrong to the algorithm, as it is based on the data that has been collected in a certain area. For example, the moisture sensor will most likely have the highest percentage to determine output. Depending on how much moisture is in the soil, will determine that percentage of time that the specific zone needs watering. The watering time might be determined from real-time data, while the time of day of watering might be determined from historical data as well as real-time data. 
 
 \subsection{Relay to Turn on Zones}
-The relay board plugin from SIP \cite{SIP} allows a user to use one or more relay boards to control sprinkler valves; up to 12 stations. A variety of relay boards can be driven by a Raspberry Pi to turn sprinkler valves on. They are commonly available with 1, 2, 4, 8 and 16 channels. As for our relay board, we chose to use SainSmart's \cite{relayBoard} 4-channel 5v relay board (link for part in table 1). This board is active low, meaning a relay is switched on when the Raspberry Pi output changes from 3.3 Volts to 0 Volts. 
-
-The average valve in a sprinkler system requires a 24VAC signal to open, however a Raspberry Pi only outputs signals at a maximum of 5VDC. To convert the 5VDC that the Pi can output to 24VAC you must use a relay board to change the signal. Once the signal can be converted and the Pi can open and close valves freely, a script can be created on the Pi to send signals to each relay to close and open on command. The relay board plugin from SIP \cite{SIP} allows a user to use one or more relay boards to control sprinkler valves; up to 12 stations. A variety of relay boards can be driven by a Raspberry Pi to turn sprinkler valves on. They are commonly available with 1, 2, 4, 8 and 16 channels. As for our relay board, we chose to use SainSmart's \cite{relayBoard} 4-channel 5v relay board (link for part in table 1). 'This board is active low, meaning a relay is switched on when the Raspberry Pi output changes from 3.3 Volts to 0 Volts.'
+ The average valve in a sprinkler system requires a 24VAC signal to open, however a Raspberry Pi only outputs signals at a maximum of 5VDC. To convert the 5VDC that the Pi can output to 24VAC you must use a relay board to change the signal. Once the signal can be converted and the Pi can open and close valves freely, a script can be created on the Pi to send signals to each relay to close and open on command.
+As for our relay board, we chose to use SainSmart's \cite{relayBoard} 4-channel 5v relay board (link for part in table 1). This is a widely used board with excellent resources and very cost efficient.
 
 To test the Pi and the relay together we will first use a simple python script to activate a I/O pin on the Pi to activate the relay to see if the valve opens and closes. Once it has been confirmed that a single signal works we will expand the amount of connections and expand the python script to receive input on when to shut and close the valves.
-
 
 \subsection{Integration}
 Once we have data from the sensors being read by the ESP, and valid communication from the Pi and the ESP; we will be able to integrate these tasks into data being read from the ESP and transferred to the Pi. This will then allow for testing on the predictive algorithm. Once we have data onto the Pi, we can test the algorithm to see if we have results that make sense from the data that we are actually reading. 
@@ -140,6 +135,8 @@ Once we have data from the sensors being read by the ESP, and valid communicatio
 \section{Risk Assessment}
 \subsection{Sensor Arrays}
 Med Risk: We will be testing and collecting data for temperature, infrared and moisture sensors over the summer. Once we finalize our choice on sensors, we will build a sensor array for collecting and processing the signals. Ideally, all our sensors will operate on I2C and we should be able to efficiently grab data. Our real risk, lays in how effective and accurate our sensors produce data.
+
+Sensor array testing will begin once ESP and sensor communication testing is completed. The Main Sprinkler Controller(Pi)-DB (see Fig 1.) will activate sensors and read data on scheduled time intervals. Storing up to five of the most recently read data metrics per sensor type. We will change the surrounding areas for sensor readings by adding water to the environment and checking that the scheduled time interval's data are adjusting appropriately. Once this task is completed we can begin creating and implementing algorithms to read and manipulate data to send out suggestions and control the relay board to turn on zones.
 
 \subsection{Communication Between ESP and Sensors}
 High Risk : The risk for this task is high because there can be multiple sensors trying to communicate with one ESP microcontroller. To mitigate this risk, one sensor will be added at a time. This will allow for steady progress when trying to add sensors as we move through the project and get to our final destination. Sensors that communicate with I2C will be sought after, since this is what ESP uses. This will lower the risk as we will not have to use different protocols with different sensors.
@@ -157,7 +154,7 @@ Med/Low Risk: Will use a raspberry pi with MySQL and python to create and manage
 Low Risk: The algorithm is low risk due to the fact that if we cannot find verified or supported information on the data that we receive, then we can create our own custom algorithm. The algorithm will work no matter what, but it might not be as efficient as we would want it to be. This is what makes it low risk. The algorithm will work, but efficiency could be limited.
 
 \subsection{Relay to Turn on Zones}
-Low/Med Risk: We are using a Raspberry Pi 8-Relay Card add-on which is supported with our open source interface and has low risk given its universal usage and correlation with the Raspberry PI Model 3 A+.
+Low/Med Risk: We are using a SainSmarts 4-channel 5v relay board which is supported with our open source interface and has low risk given its universal usage and correlation with the Raspberry PI Model 3 B+.
 
 \section{Communication Plan and Schedule}
 Our group communication plan consists of two different platforms. We will use Discord for real time, fast communication. We will use Github for the management of all tasks and document storage. 
@@ -218,14 +215,13 @@ During the semester we plan on meeting at least once a week to discuss how thing
     \item Present Project - Team
 \end{itemize}
 
-
-
 \section{Parts and Vendor List}
 \subsection{Sensors}
 \begin{itemize}
   \item BME280/680 (Temp/Humidity/Pressure)
   \item DHT22 (Temp/Humidity)
   \item BH1750 (Light)
+  \item I2C Soil Sensor
 \end{itemize}
 
 \subsection{Communications/Compute/Electronic Boards}
@@ -233,7 +229,7 @@ During the semester we plan on meeting at least once a week to discuss how thing
   \item 1-2x Raspberry Pi 3 B+
   \item 1x Raspberry Pi Zero W
   \item 4-5x ESP32
-  \item Channel Relay Board
+  \item 4-Channel 5v Relay Board
 \end{itemize}
 
 \subsection{Sprinkler Equipment}
@@ -260,7 +256,7 @@ Links are provided for each vendor for quick access to purchase parts and provid
         \hline
         \href{https://www.raspberrypi.org/products/raspberry-pi-zero/}{Raspberry Pi} &\href{https://www.sparkfun.com/products/14277}{Sparkfun} & Raspberry Pi Zero W \\
         \hline
-        \href{https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z}{HiLetgo} & & ESP32 \\
+        \href{https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z}{HiLetgo} & - & ESP32 \\
         \hline
         \href{https://www.sainsmart.com/products/4-channel-5v-relay-module}{Sain Smart} & \href{https://wiki.52pi.com/index.php/DockerPi_4_Channel_Relay_SKU:_EP-0099}{52Pi} & Relay Board \\
         \hline
