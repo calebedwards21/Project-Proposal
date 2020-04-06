@@ -65,6 +65,13 @@ This project will be based off of a lot of open source material that are already
 
 This project is running with a Raspberry Pi as the main controller, which is similar to many other examples \cite{SIP}. These computers have a lot of processing power, as well as memory that is located in SD cards placed externally on the board. This is what allows for adding a database and UI deployment in this project. The Raspberry Pi 3+ has four USB ports and an HDMI port. This allows us to flash an operating system onto the Pi and then we can add the rest of the features from there, including the database, UI, etc. 
 
+\begin{figure*}
+	\centering
+	\includegraphics[width=\textwidth]{Diagram.png}
+	\caption{Block Diagram of Sprinkler Controller}
+	\label{label1}
+\end{figure*}
+
 We will be using InfluxDB, an open-source time series database, to log all the sensor data that we collect for this project \cite{influxdb}. In time series databases data is automatically paired to the time it was entered into the database allowing for easy visualization and access of data. Watering a lawn relies heavily on time, so logging data via this type of database will allow for easy analysis of trends based off of similar times of day or yearly cycles.
 
 \begin{figure}
@@ -77,13 +84,6 @@ We will be using InfluxDB, an open-source time series database, to log all the s
 Many of the example systems like the option to add sensors to help deliver accurate information on whether the lawn should be watered \cite{OpenSprinkler}. This project will have the same thing, with multiple sensors attached to an ESP32. This chip allows for wireless communication and can be programmed with MicroPython or Arduino. This is why it is used in many wireless communication projects \cite{OpenSprinkler}. These chips have an I2C bus for the sensors, and then can send that data over a wireless communication. This can be done with Wifi or Bluetooth, and a visual of the chip is found in Fig. 1. This chip provides a 240 MHz clock with around 512 MB of RAM \cite{micropy}. This chip could offload some of the processing requirements of the Raspberry Pi onto itself if the situation required. That is what makes these chips so desirable. 
 
 We will demonstrate this project with a mini version of a yard. We will have a demo box with dirt that also contains our moisture sensor. This will also have a valve in the demo box that we can turn on with our relay board. There will be no water coming through the valve as we will be demonstrating inside, but we will manually pour water in to demonstrate that the moisture sensor works. Our weather station will also be in use for demonstration. To demonstrate some of the UI features, we will use historical data that represent different weather patterns. 
-
-\begin{figure*}
-	\centering
-	\includegraphics[width=\textwidth]{Diagram.png}
-	\caption{Block Diagram of Sprinkler Controller}
-	\label{label1}
-\end{figure*}
 
 
 \section{Project Tasks and Integration}
