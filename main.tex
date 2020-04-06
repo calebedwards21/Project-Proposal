@@ -150,16 +150,18 @@ High Risk : The risk for this task is high because there can be multiple sensors
 High Risk : The risk for communication between the ESP and sensors is high. This is high due to the choice of using wireless communication. This will be done either with BLE or Wifi. To lessen the risk of this task, wired communication over I2C will be used. This will create a more stable and reliable communication that we are already used to. 
 
 \subsection{User Interface}
-Med/Low Risk: The interface is based upon an open source irrigation control system that is being actively updated and used. This interface however doesn't support our sensors and I will have to add it to the interface, thus the only true area of risk for this is whether or not we can add new sensor information.
+Med Risk: The interface is based upon an open source irrigation control system that is being actively updated and used. This interface however doesn't support our sensors and I will have to add it to the interface, thus the only true area of risk for this is whether or not we can add new sensor information.
 
-\subsection{Database and Data Storage}
-Med/Low Risk: Will use a raspberry pi built around a long term data base called InfluxDB. This will be used to hold data from sensors.This database is specialized for sensor related data and has a excellent tool for displaying real-time data visually.
+% LOW RISK, REMOVE
+%\subsection{Database and Data Storage}
+%Low Risk: Will use a raspberry pi built around a long term data base called InfluxDB. This will be used to hold data from sensors.This database is specialized for sensor related data and has a excellent tool for displaying real-time data visually.
 
-\subsection{Predictive Algorithm}
-Low Risk: The algorithm is low risk due to the fact that if we cannot find verified or supported information on the data that we receive, then we can create our own custom algorithm. The algorithm will work no matter what, but it might not be as efficient as we would want it to be. This is what makes it low risk. The algorithm will work, but efficiency could be limited.
+% LOW RISK, REMOVE
+%\subsection{Predictive Algorithm}
+%Low Risk: The algorithm is low risk due to the fact that if we cannot find verified or supported information on the data that we receive, then we can create our own custom algorithm. The algorithm will work no matter what, but it might not be as efficient as we would want it to be. This is what makes it low risk. The algorithm will work, but efficiency could be limited.
 
 \subsection{Relay to Turn on Zones}
-Low/Med Risk: We are using a SainSmarts 4-channel 5v relay board which is supported with our open source interface and has low risk given its universal usage and correlation with the Raspberry PI Model 3 B+.
+Med Risk: We are using a SainSmarts 4-channel 5v relay board which is supported with our open source interface and has low risk given its universal usage and correlation with the Raspberry PI Model 3 B+. Obtaining the relays during the current state of the world may cause issues, making it medium risk.
 
 \section{Communication Plan and Schedule}
 Our group communication plan consists of two different platforms. We will use Discord for real time, fast communication. We will use Github for the management of all tasks and document storage. 
