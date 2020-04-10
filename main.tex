@@ -95,7 +95,7 @@ There will be many different tasks involved in the creation of a smart sprinkler
 \subsection{Sensor Arrays}
 Sensors were selected based on two criteria: I2C protocol and cost. Providing relevant metrics such as light, temperature, soil ph, soil moisture and composition of the soil. Our product doesn't require a large area of precision, therefore one to two sensors per zone will suffice for accurate readings. Sensor data collection will be toggled by our micro controller (ESP32); whenever a measurement is needed. Storing up to five of the most previous read values for each individual sensor. We can reduce the power consumption of sensors by gathering data in timed intervals.
 
-Sensor array testing will begin once ESP and sensor communication testing is completed. The Main Sprinkler Controller(Pi)-DB (see Fig \ref{label1}) will activate sensors and read data on scheduled time intervals. Storing up to five of the most recently read data metrics per sensor type. We will change the surrounding areas for sensor readings by adding water to the environment and checking that the scheduled time interval's data are adjusting appropriately. Once this task is completed we can begin creating and implementing algorithms to read and manipulate data to send out suggestions and control the relay board to turn on zones.
+Sensor array testing will begin once ESP and sensor communication testing is completed. The Main Sprinkler Controller(Pi)-DB (see Fig. \ref{label1}) will activate sensors and read data on scheduled time intervals. Storing up to five of the most recently read data metrics per sensor type. We will change the surrounding areas for sensor readings by adding water to the environment and checking that the scheduled time interval's data are adjusting appropriately. Once this task is completed we can begin creating and implementing algorithms to read and manipulate data to send out suggestions and control the relay board to turn on zones.
 
 Testing sensors primarily will be done by connecting each one individually to a Raspberry Pi. Then at regular intervals communicate and receive data from each device connected. When we decide on which sensors to continue using for the project, combine them onto a breadboard or pcb and connect them together to the Pi. If we are able to receive data from them all sequentially on the same bus, then the sensor arrays are ready to be connected to the ESP32 to communicate wirelessly to the Pi. Our real risk, lays in how effective and accurate our sensors produce data.
 
@@ -131,18 +131,18 @@ The interface is based upon an open source irrigation control system that is bei
 
 
 \subsection{Database and Data Storage}
-Our projects open source sprinkler/irrigation control software, SIP,has the capabilities of performing http get/post requests to manipulate or control SIP \cite{SIP}. The logging in feature that's included with SIP is disabled by default, in order to prevent the uncontrolled accumulation of log data. The raspberry pi controlling the SIP will utilize its memory on board for one user. By default, only 100 records will be recorded at a time. Upon the maximum number of records being reached, new records will be added to the top of the list and the oldest record will be deleted from the bottom. Archiving the records can be done through the log page which contains a link for a user to download the log data as a spread sheet friendly, comma separated values, (csv) text file to another device such as a laptop. Allowing us to keep permanent archived sprinkler data in manageable chunk sizes.\cite{SIP}
+Our projects open source sprinkler/irrigation control software, SIP, has the capabilities of performing http get/post requests to manipulate or control SIP \cite{SIP}. The logging in feature that's included with SIP is disabled by default, in order to prevent the uncontrolled accumulation of log data. The raspberry pi controlling the SIP will utilize its memory on board for one user. By default, only 100 records will be recorded at a time. Upon the maximum number of records being reached, new records will be added to the top of the list and the oldest record will be deleted from the bottom. Archiving the records can be done through the log page which contains a link for a user to download the log data as a spread sheet friendly, comma separated values, (csv) text file to another device such as a laptop. Allowing us to keep permanent archived sprinkler data in manageable chunk sizes \cite{SIP}.
 
 A separate long term database will be created using InfluxDB. Once all the data types such as temperature, humidity, light, etc. are chosen we will build a time series database around them to be able to keep track of long term data trends and easy visualization for testing.
 
 \subsection{Predictive Algorithm}
 There needs to be an algorithm that determines what happens with the data that is stored on the Pi. This could be done with a certain percentage given to each sensor that is read from each of the zones. Based on these percentages, an algorithm could determine a watering time for that zone, as well as a proposed watering time. These calculations are determined based on the sensors being a temperature, moisture, and other sensors listed on the bill of materials. Depending on how much data the user has, a machine learning model could be used for this project as well. This would be dependent on if the Pi had enough processing power to run machine learning algorithms, and contain a model. The model could be trained with previous summer's data, and then be used to determine predictions for the user. If time, data, and memory permits, a model will be trained based on the data and implemented to take future data and predict recommendations for the user. 
 
-This portion of testing will be mostly trial and error. Based on the data, and how much we have of it, will determine what the algorithm produces. This algorithm will also be based off of past research \cite{SmartSprinkler}. There is really no wrong to the algorithm, as it is based on the data that has been collected in a certain area. For example, the moisture sensor will most likely have the highest percentage to determine output. Depending on how much moisture is in the soil, will determine that percentage of time that the specific zone needs watering. The watering time might be determined from real-time data, while the time of day of watering might be determined from historical data as well as real-time data. 
+This portion of testing will be mostly trial and error. Based on the data, and how much we have of it, will determine what the algorithm produces. This algorithm will also be based off of past research \cite{SmartSprinkler}. There is really no right or wrong in the creation of the algorithm, as it is based on the data that has been collected in a certain area. For example, the moisture sensor will most likely have the highest percentage to determine output. Depending on how much moisture is in the soil, will determine that percentage of time that the specific zone needs watering. The watering time might be determined from real-time data, while the time of day of watering might be determined from historical data as well as real-time data. 
 
 \subsection{Relay to Turn on Zones}
  The average valve in a sprinkler system requires a 24VAC signal to open, however a Raspberry Pi only outputs signals at a maximum of 5VDC. To convert the 5VDC that the Pi can output to 24VAC you must use a relay board to change the signal. Once the signal can be converted and the Pi can open and close valves freely, a script can be created on the Pi to send signals to each relay to close and open on command.
-As for our relay board, we chose to use SainSmart's \cite{relayBoard} 4-channel 5v relay board (link for part in table 1). This is a widely used board with excellent resources and very cost efficient.
+As for our relay board, we chose to use SainSmart's \cite{relayBoard} 4-channel 5v relay board (link for part in table \ref{tab:Parts}). This is a widely used board with excellent resources and very cost efficient.
 
 To test the Pi and the relay together we will first use a simple python script to activate a I/O pin on the Pi to activate the relay to see if the valve opens and closes. Once it has been confirmed that a single signal works we will expand the amount of connections and expand the python script to receive input on when to shut and close the valves.
 
@@ -234,29 +234,8 @@ During the semester we plan on meeting at least once a week to discuss how thing
     \item Present Project - Team
 \end{itemize}
 
-\section{Parts and Vendor List}
-\subsection{Sensors}
-\begin{itemize}
-  \item BME280/680 (Temp/Humidity/Pressure)
-  \item DHT22 (Temp/Humidity)
-  \item BH1750 (Light)
-  \item I2C Soil Sensor
-\end{itemize}
-
-\subsection{Communications/Compute/Electronic Boards}
-\begin{itemize}
-  \item 1-2x Raspberry Pi 3 B+
-  \item 1x Raspberry Pi Zero W
-  \item 4-5x ESP32
-  \item 4-Channel 5v Relay Board
-\end{itemize}
-
-\subsection{Sprinkler Equipment}
-\begin{itemize}
-  \item 4x Sprinkler Valves
-\end{itemize}
-
-Links are provided for each vendor for quick access to purchase parts and provide more information. See table 1 below for links to each parts page.
+\subsection{Parts and Vendor List}
+We have three types of hardware components in our system, sensors, electronics, and sprinkler equipment.  The sensors consist of parts BME280 (Temp/Humidity/Pressure), DHT22 (Temp/Humidity), BH1750 (light) and a water-proof I2C soil sensor. Will use Raspberry Pi's B+ and Zero electronic board models (Fig. \ref{fig:pi_label}) along with an ESP32 controller for sensor output retrieval.Links are provided for each vendor for quick access to purchase parts and provide more information. See table \ref{tab:Parts} below for links to each parts page.
 \begin{table}[hbt!]
 \centering
 \caption{List of Vendors and Items with links}
@@ -286,9 +265,10 @@ Links are provided for each vendor for quick access to purchase parts and provid
         \end{tabular}
    \end{tabular}%
    }
+   \label{tab:Parts}
 \end{table}
 
-Many of the secondary vendors for the parts are links provided for other options besides those listed above in the bill of materials.
+Many of the secondary vendors for the parts are links provided for further part options.
 \section{Conclusion}
 % The spring and summer milestones can be completed independently of each other, with no integration at that time. When the fall months arrive, integration testing starts having to take place and dependencies occur. For the month of August, we will need data to determine the algorithm. By September, the database and algorithm should be completed. This will allow the Pi to access the database and compute the algorithm. The UI will also need to be completed by September so the recommendations can be sent to the user. By October, we will need the relay to work, the communication between sensors and ESP, and the USB communication between Pi and ESP to all be ready to go. These will have to be integrated to start with a completed UI and database to see if the project can fully come together. The relay will have to work so the recommendations that the user selects can be implemented and shown from the relay. At this point the rest of the project will have to come together for final testing. 
 
